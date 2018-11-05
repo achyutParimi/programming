@@ -1,0 +1,97 @@
+package com.samsung.test;
+
+import java.text.DateFormat;
+import java.util.Locale;
+
+public class FirstProgram {
+	
+	public void fibonacci(int n) {
+		int prev = 0;
+		int cur=1;
+		int fut;
+		System.out.println("Febonacci Series....");
+		System.out.println(+prev);	
+		System.out.println(+cur);	
+		do {
+			fut = prev + cur;
+			prev = cur;
+			cur = fut;
+			
+			System.out.println(+cur);	
+	}while( fut < n);
+ 		
+		
+	}
+	
+	public void twoDIntArray(){
+		
+		int [][]arr = new int[5][];
+		
+		for( int i = 0; i < 5; i++)
+			for(int j = 0; j < 2; j++) {
+				System.out.println("i--" +i +"j--" +j);
+				//arr[i][j] = (int)1;
+				System.out.println("\t"+arr[i][j]);
+			}
+		System.out.println("\n");
+	}
+	
+    public boolean isPalindrome(int x) {
+        int new_num = 0;
+        int temp_num = x;
+
+        while(temp_num > 0){
+            if(temp_num >=10){
+                new_num = (new_num+ (temp_num %10)) * 10;
+            }else {
+                new_num = (new_num + (temp_num %10));
+            }
+                
+            temp_num = temp_num/10;
+        }
+        if(new_num == x)
+            return true;
+        else 
+            return false;
+     
+        
+    }
+    public long reverse(long x) {
+        long num = 0;
+        boolean negative = false;
+        if (x < 0){
+        	negative = true;
+        	x = (-1)* x;
+        }
+        while(x > 0){
+            if(x >10){
+                num = (num+ (x%10)) * 10;
+            }else {
+                num = (num + (x%10));
+            }
+                
+            x = x/10;
+        }
+        if(negative) num = (-1)*num;
+
+     return num;   
+    }
+	
+	public static void main(String[] args) {
+		System.out.println("First Program");
+		FirstProgram fp = new FirstProgram();
+/*		
+		fp.fibonacci(10);
+		long num= fp.reverse(1534236469);
+		System.out.println(" print reverse num :"+ num);
+		System.out.println("is palindrome" +fp.isPalindrome(1001));
+		fp.twoDIntArray();
+
+		DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.FRANCE);
+		System.out.println(" print date :"+df.toString());*/
+		String str1 = "Achyut";
+		str1.replace(str1.charAt(0), 'c' );
+		System.out.println("..." +str1);
+	}
+
+}

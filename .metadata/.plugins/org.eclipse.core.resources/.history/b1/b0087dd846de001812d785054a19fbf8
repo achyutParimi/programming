@@ -1,0 +1,31 @@
+package com.samsung.test;
+
+public class StringSamples {
+	
+	public boolean isUnique(String str){
+		boolean val = true;
+		for(int i = 0; i<str.length(); i++){
+			char c = str.charAt(i);
+			int j=i+1;
+			while(j < str.length()){
+				if(c == str.charAt(j)){
+					val = false; 
+					break;
+				}else j++;
+
+			}
+
+			
+		}
+	return val;
+	}
+	
+	public static void main(String []args){
+		
+		StringSamples ss = new StringSamples();
+		
+		System.out.println("isUnique ? = " +ss.isUnique("AchyutA"));
+		
+	}
+
+}

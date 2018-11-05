@@ -1,0 +1,417 @@
+package com.samsung.test;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.List;
+import java.util.HashMap;
+
+ class Node{
+	int key;
+	Node left, right;
+	
+	Node(int val){
+		key = val;
+		left = null;
+		right = null;
+	}
+	
+}
+public class BinaryTree {
+	
+	Node root;
+
+	BinaryTree(){
+		root = null;
+	}
+	
+
+	/*  in order traversal: left  root right */
+	void inOrderTraversal(Node node){
+		if(node == null) return;
+		
+		inOrderTraversal(node.left);
+		
+		System.out.print(" "+node.key);
+		
+		inOrderTraversal(node.right);
+				
+	}
+	
+	/*  post order traversal: left  right root*/
+	void postOrderTraversal(Node node){
+		if(node == null) return;
+		
+		postOrderTraversal(node.left);
+		
+		postOrderTraversal(node.right);
+		
+		System.out.print(" "+node.key);
+	}
+
+	/*  pre order traversal: root left  right */
+	void preOrderTraversal(Node node){
+		if(node == null) return;
+		
+		System.out.print(" "+node.key);
+		
+		preOrderTraversal(node.left);
+		
+		preOrderTraversal(node.right);
+				
+	}
+	
+	void bfsTraversal(Node node){
+		if(node == null) return;
+		
+		List<Node> queue = new LinkedList();
+		
+		queue.add(node);
+		
+		while(!queue.isEmpty()){
+			Node n= queue.remove(0);
+			System.out.print(" " +n.key);
+			
+			if(n.left != null)
+				queue.add(n.left);
+			if(n.right!= null)
+				queue.add(n.right);
+		}
+		
+		
+	}
+	
+	int height(Node node){
+		int lheight;
+		int rheight;
+		
+		if(node == null) return 0;
+		else{
+			lheight = height(node.left);
+			rheight = height(node.right);
+			
+			if (lheight>rheight) return (lheight+1);
+		
+		else 
+			return (rheight+1);
+		
+		}
+	
+	}
+	
+	public void mirrorImage(Node node){
+		if(node == null) return;
+		
+		Node temp = node.left;
+		node.left = node.right;
+		node.right = temp;
+		
+		mirrorImage(node.left);
+		mirrorImage(node.right);
+	}
+	
+	public void bfs(Node node, TestQueue tq){
+		if(node == null) return;
+		
+		List<Node>list = new LinkedList<Node>();
+		Queue<Node>que = new LinkedList<Node>();
+		
+		list.add(node);
+		
+		while(!list.isEmpty()){
+			Node tn = list.remove(0);
+			tq.add(tn.key);
+			
+			if(tn.left != null){
+				list.add(tn.left);				
+			}
+			if(tn.right!= null){
+				list.add(tn.right);
+
+			}
+			
+		}
+		
+		
+	}
+	
+
+	public void traverseLevel(Node node, int level){
+		if(node == null) 
+			return;
+		if(level == 1) 
+			System.out.print(" "+node.key);
+		else if(level > 1){
+			traverseLevel(node.left, level-1);
+			traverseLevel(node.right, level-1);
+		}
+		
+	}
+	public void traverseLevelOrder(Node node){
+		
+		int ht = height(node);
+		
+		for(int i=1; i<=ht; i++){
+			traverseLevel(node, i);
+		}
+		
+	}
+
+	public int findMaxVal(Node node){
+		
+		if(node==null)return -1;
+		int max = node.key;
+		
+		Queue<Node> que = new LinkedList<Node>();
+		
+		que.add(node);
+		
+		while(!que.isEmpty()){
+			Node tn = que.remove();
+			if(tn.key >= max) max = tn.key;
+			
+			if(tn.left!= null) que.add(tn.left);
+			if(tn.right!= null) que.add(tn.right);
+			
+		}
+					
+		return max;
+	}
+	
+	int max = 0;
+	public void findMaxValRec(Node node){
+		//inorder Left Root Right
+		
+		if(node == null) return;
+		
+		findMaxValRec(node.left);
+		//check Max
+		if(max <= node.key) max = node.key;
+		
+		
+		findMaxValRec(node.right);
+		
+	}
+	
+/*	Find Level Order Sum, and 
+	return the level with highest level order*/
+	
+	public int lOrderSum(Node node){
+		
+		if(node == null) return 0;
+		Queue<Node> que = new LinkedList<Node>();
+		que.add(node);
+		int level = 0;
+		int lSum = 0;
+		HashMap<Integer,Integer> hmap=new HashMap<Integer,Integer>();
+		hmap.put(level, node.key);
+		while(!que.isEmpty()){
+			Node tn = que.remove();
+			
+			if(tn.left!= null){
+				que.add(tn.left);
+				lSum = lSum + tn.key;
+				hmap.put(level+1, lSum);
+			}
+				
+			if(tn.right!= null){
+				que.add(tn.right);
+				lSum = lSum + tn.key;
+				hmap.put(level+1, lSum);				
+			}
+			lSum = 0;
+			level++;
+			
+		}
+		
+		return level;
+	}
+	public int levelOrderSumUsingHeight(Node node){
+		
+		if(node == null) return 0;
+		Queue<Node> que = new LinkedList<Node>();
+		
+		que.add(node);
+		
+		while(!que.isEmpty()){
+			Node tn = que.remove();
+			
+			if(tn.left!= null){
+				que.add(tn.left);
+			}
+			else if(tn.right!= null){
+				que.add(tn.left);
+			}
+		}
+		
+		return 0;
+		
+	}
+	
+	public boolean checkLeafNodes(Node tn, Node sub){
+		
+		Node temp = tn;
+		Node subTemp = sub;
+		boolean valid = false;
+		while(( (temp.left!=null)||(temp.right!=null))&& ((subTemp.left!=null)||(subTemp.right!=null))){
+			if((temp.left.key == subTemp.left.key)&&(temp.right.key == subTemp.right.key)){
+				temp = temp.left;
+				subTemp = subTemp.left;
+				valid = true;
+			}else
+				valid = false;
+		}
+		
+		return valid;
+	}
+	
+	public boolean isSubTreeIter(Node node, Node sub){
+
+		if((node == null)|| (sub==null))
+			return false;
+		
+		if(node.key == sub.key) return true;
+		
+        Queue<Node> que = new LinkedList<Node>();
+        
+        que.add(node);
+        
+        while(!que.isEmpty()){
+            Node tn = que.remove();
+            if(tn.left.key == sub.key) 
+            {
+            	boolean retVal = checkLeafNodes(tn.left, sub);
+                return retVal;
+            }else if(tn.right.key == sub.key){
+            	boolean retVal = checkLeafNodes(tn.right, sub);
+                return retVal;
+            }
+            
+            if(tn.left!= null)
+                que.add(tn.left);
+            
+            if(tn.right!=null)
+                que.add(tn.right);
+            
+        }
+        
+        return false;
+		
+		
+	}
+	
+	public boolean isChildSubTree(Node node, Node sub){
+		if( (node == null) && (sub == null) ) return true;
+		if( (node == null) || (sub == null) ) return false;
+		
+		if(node.key == sub.key) 
+			return (isChildSubTree(node.left, sub.left) && isChildSubTree(node.right, sub.right));
+		else
+			return false;
+		
+	}
+	public boolean isSubTreeRec(Node node, Node sub){
+		if( (node == null) && (sub == null) ) return true;
+		if((node == null)||(sub == null)) return false;
+		
+		if(node.key == sub.key &&  isChildSubTree(node, sub)) return true;				
+		return (isSubTreeRec(node.left, sub)||isSubTreeRec(node.right, sub));
+		
+		
+	}
+	public int getInorderRootIndex(int[] inorder, int root){
+		
+		for(int i=0; i< inorder.length; i++){
+			if(inorder[i] == root)
+				return i;
+		}
+		
+		return -1;
+	}
+    public Node bTreeHelper(int[] preorder, int[] inorder, int inStart, int inEnd){
+        
+        //baseIndex of a preorder points to Root Node
+        Node tn = new Node(preorder[inStart]);
+        if(inStart > inEnd) return tn;
+        
+
+        //with RootNode, break the inorder into left subtree & right subtree
+        int leftEnd = getInorderRootIndex(inorder, preorder[inStart]);
+        
+        tn.left = bTreeHelper(preorder, inorder, inStart++, leftEnd);
+        tn.right = bTreeHelper(preorder, inorder, leftEnd++, inEnd);
+        
+        
+        return tn;
+        
+    } 
+    public Node buildTree(int[] preorder, int[] inorder) {
+        
+        int inStart = 0;;
+        int inEnd = preorder.length;
+        
+        Node tn = bTreeHelper(preorder, inorder, inStart, inEnd);
+        
+        return tn;
+        
+    }
+
+	
+	public static void main(String []args){
+		
+		BinaryTree tree= new BinaryTree();
+		
+		tree.root  = new Node(3);
+		tree.root.left  = new Node(4);
+		tree.root.right = new Node(5);
+		tree.root.left.left = new Node(1);
+		tree.root.left.right = new Node(2);
+/*		tree.root.right.left = null;
+		tree.root.right.right = null;
+		tree.root.left.left.left = new Node(0);*/
+/*		
+		System.out.println("\nPre Order Traversal: ");
+		tree.preOrderTraversal(tree.root);
+		
+		System.out.println("\nIn Order Traversal: ");
+		tree.inOrderTraversal(tree.root);
+		
+		System.out.println("\n Post Order Traversal: ");
+		tree.postOrderTraversal(tree.root);
+		
+
+		System.out.println("\nheight of the binary tree: " +tree.height(tree.root));
+		
+		tree.traverseLevelOrder(tree.root);
+		
+		System.out.println("\nBFS Traversal using : ");
+		tree.bfsTraversal(tree.root);
+*/		
+		TestQueue tq = new TestQueue(10);
+		tree.bfs(tree.root, tq);
+		tq.display();
+		
+		//int max;
+//		max = tree.findMaxVal(tree.root);
+		
+//		max = tree.findMaxValRec(tree.root);
+	//	System.out.println("Max Element in the Binary Tree : " +max);
+		
+		
+		BinaryTree sub= new BinaryTree();
+		
+		sub.root = new Node(4);
+		sub.root.left= new Node(1);
+		sub.root.right = new Node(2);
+		
+	//	System.out.println("Is a Sub tree : " + tree.isSubTreeRec(tree.root, sub.root) );
+		
+		int[] preorder = {3,9,20,15,7};
+		int[] inorder = {9,3,15,20,7};
+		
+		Node treeNode = tree.buildTree(preorder, inorder);
+		System.out.println("\nPre Order Traversal: ");
+		tree.preOrderTraversal(treeNode);		
+		
+		
+	}
+}

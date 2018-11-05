@@ -1,0 +1,61 @@
+package com.samsung.test;
+
+public class EditWord {
+
+	//char charArr[]={'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 
+		//	'o', 'p', 'q','r', 's', 't', 'u', 'v', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+	public int editCheck(String []str1, String str2, int i){
+		
+		int wordCount=0;
+		//for(int i = 0; i < str1.length; i++)
+			if(str1[i].compareTo(str2) != 0){
+		        if(str1[i].length() > str2.length()){
+		        	if(str1[i].contains(str2) == true) wordCount++;
+		        	
+		        }else if(str1[i].length() < str2.length() ){
+		        	if(str2.contains(str1[i]) == true) wordCount++;
+		        } else {
+				
+					for(int j = 0; j < str1[i].length(); j++){
+						char c = str1[i].charAt(j);
+						char temp;
+						while(c <= 'z'){
+							temp = str1[i].charAt(j);
+							String str=str1[i].replace(str1[i].charAt(j), c );
+							if(str.compareTo(str2) == 0) {
+								wordCount++;
+								break;
+							}
+							c++;
+							str1[i].replace(str1[i].charAt(j), temp );
+						}
+					}
+		        } // end of else
+			}
+		
+		
+		
+		return wordCount;
+	}
+	
+	int maxCount = 0;
+	public static void main(String []args){
+
+		EditWord ew = new EditWord();
+		int count = 0;
+		//String[] words = { "dig", "dog"};
+		String[] words = { "cat", "dig", "dog", "fig", "fin",
+                "fine", "fog", "log", "wine" };
+		for(int i = 0; i<words.length; i++){
+			count = ew.editCheck(words, words[i], i);
+			System.out.println("wordCount :"+count);
+			if(count > ew.maxCount) 
+				ew.maxCount = count;
+
+		}
+		
+		System.out.println("Eureka ..."+ew.maxCount);
+		
+	}
+	
+}

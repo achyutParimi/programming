@@ -1,0 +1,67 @@
+package com.samsung.test;
+
+import java.util.*;
+public class ConvertToWords {
+	HashMap<Integer, String>hMap;
+	
+	public void constructHMap(){
+		hMap =  new HashMap<Integer, String>();
+	
+		hMap.put(1, "one");
+		hMap.put(2, "one");
+		hMap.put(3, "three");
+		hMap.put(4, "four");
+		hMap.put(5, "five");
+		hMap.put(6, "six");
+		hMap.put(7, "seven");
+		hMap.put(8, "eight");
+		hMap.put(9, "nine");
+		hMap.put(10, "ten");
+		hMap.put(11, "eleven");
+		hMap.put(12, "twelve");
+		hMap.put(13, "thirteen");
+		hMap.put(14, "fourteen");
+		hMap.put(15, "fifteen");
+		hMap.put(16, "sixteen");
+		hMap.put(17, "seventeen");
+		hMap.put(18, "eighteen");
+		hMap.put(19, "nineteen");
+		hMap.put(20, "twenty");
+		hMap.put(30, "thirty");
+		hMap.put(40, "forty");
+		hMap.put(50, "fifty");
+		hMap.put(60, "sixty");
+		hMap.put(70, "seventy");
+		hMap.put(80, "eighty");
+		hMap.put(90, "ninety");
+		hMap.put(100, "hundred");
+		hMap.put(1000, "thousand");
+
+	}
+	public void convertNumToWords(int num){
+		int i = 0;
+		int []arr = new int[6];
+	
+		while(num > 0){
+			int rem = num%10;
+			arr[i] = rem;;
+			num = num/10;
+			System.out.println(".."+ num+"...."+rem+"..."+arr[i]);
+			i++;
+		}
+		
+		if(arr.length == 1){
+			
+		}
+		
+			
+		
+		
+		
+	}
+	public static void main(String args[]){
+		ConvertToWords ctw = new ConvertToWords();
+		ctw.convertNumToWords(623);
+		
+	}
+}

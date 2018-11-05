@@ -1,0 +1,88 @@
+package com.samsung.test;
+
+public class SingleLinkedList {
+	public class Node {
+		int key;
+		Node next;
+		
+		Node(int val){
+			key = val;
+			next = null;
+		}
+	}
+	
+	public Node  createLinkedList(int []arr){
+		Node root = null;
+		
+		root = new Node(arr[0]);
+		Node temp = root;
+		for(int i = 1; i < arr.length; i++){
+			
+			temp.next = new Node(arr[i]);
+			temp = temp.next;
+			
+		}
+		return root;
+	}
+	
+	public void displayList(Node root){
+		
+		if(root == null) return;
+		Node temp = root;
+		
+		while(temp != null){
+			System.out.println("..."+ temp.key);
+			temp = temp.next;
+		}
+	}
+	
+	public Node findPartitionNode(Node root, int pElement){
+		
+		Node temp = root;
+		
+		while(temp != null){
+			if(temp.key == pElement)
+				break;
+			temp = temp.next;
+		}
+		return temp;
+	}
+	public Node partitionList(Node root, int pElement){
+		if(root == null) return null;
+		Node temp = root;
+		
+		Node pNode = findPartitionNode(root, pElement);
+		
+		while(temp != null){
+			if(temp.key < pElement){
+				
+				temp = temp.next;
+			}else {
+				Node t = temp;
+				temp.next = pNode;
+				pNode.next = t;
+				
+			}
+				
+		}
+		
+		
+		return root;
+	}
+	
+	public static void main(String []args){
+		int []arr = {9,4,7,2,6,1,5,3,8};
+		
+		SingleLinkedList sll = new SingleLinkedList();
+		Node root = sll.createLinkedList(arr);
+		
+		sll.displayList(root);
+		
+		root = sll.partitionList(root, 5);
+		
+		sll.displayList(root);
+		
+	}
+	
+
+}

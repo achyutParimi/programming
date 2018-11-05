@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;TestJavaVersion/src/sample_in_out put&apos; to &apos;sample_in_out&apos;" description="Rename resource &apos;sample_in_out put&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/sample_in_out put" name="sample_in_out" stamp="1538790174845" updateReferences="true"/>
+</session>

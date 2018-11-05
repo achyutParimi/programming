@@ -1,0 +1,42 @@
+package com.samsung.test;
+
+public class TestStack {
+	int arr[];
+	int top;
+	TestStack(int n){
+		arr = new int[n];
+		top = -1;
+		
+	}
+	void push(int a){
+		if(top == arr.length) return;
+		else{
+			top++;
+			arr[top] = a;
+
+		}
+		
+	}
+	int pop(){
+		int num = 0;
+		if(top == -1) return -1;
+		else {
+			num = arr[top];
+			top--;
+		}
+		return num;
+	}
+	public static void main(String []args){
+		int size = 10;
+		TestStack ts = new TestStack(size);
+		ts.push(5);
+		ts.push(10);
+		ts.push(18);
+		ts.push(19);
+		ts.push(20);
+		ts.push(21);
+		System.out.println("the element added is:    "+ts.pop());
+		
+	}
+
+}

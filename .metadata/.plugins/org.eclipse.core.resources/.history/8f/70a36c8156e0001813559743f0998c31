@@ -1,0 +1,15 @@
+package com.samsung.test;
+
+public class PartitionLinkedList {
+	
+class SingleLinkedList{
+	int val;
+	SingleLinkedList node;
+}
+
+public static void main(String []args){
+	SingleLinkedList list = new SingleLinkedList();
+	
+}
+
+}

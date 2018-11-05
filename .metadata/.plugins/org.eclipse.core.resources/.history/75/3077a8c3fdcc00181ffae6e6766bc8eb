@@ -1,0 +1,27 @@
+package com.samsung.test;
+
+public class ConvertToWords {
+
+	
+	public void convertNumToWords(int num){
+		int i = 0;
+		int []arr = new int[6];
+		while(num > 0){
+			int rem = num%10;
+			arr[i] = rem;
+			System.out.println("a[i] : ..."+arr[i]);
+			num = num/10;
+			i++;
+			System.out.println(".."+ num+"...."+rem+"..."+arr[i]);
+		}
+			
+		
+		
+		
+	}
+	public static void main(String args[]){
+		ConvertToWords ctw = new ConvertToWords();
+		ctw.convertNumToWords(623);
+		
+	}
+}

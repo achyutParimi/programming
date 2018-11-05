@@ -1,0 +1,105 @@
+package com.samsung.test;
+
+public class EditWord {
+	
+	public boolean checkDiffOne(String longStr, String str){
+		int ctr=0;
+		for(int i = 0; i< longStr.length(); i++){
+			if(longStr.charAt(i) != str.charAt(i)) {
+				ctr++;
+				if(ctr >1) return false;
+			}
+		}
+		
+		return true;
+		
+	}
+	public boolean isValid(String str1, String str2){
+		int s1length = str1.length();
+		int s2length = str2.length();
+		
+		if(s1length > s2length){
+			if(s1length -s2length >= 2) return false;
+			
+			return checkDiffOne(str1, str2);
+			
+		}else{
+			if(s2length -s1length >= 2) return false;
+			
+			return checkDiffOne(str2, str1);
+		}
+		
+		
+	}
+	public String replace(String str, int index, char replace){     
+	    if(str==null){
+	        return str;
+	    }else if(index<0 || index>=str.length()){
+	        return str;
+	    }
+	    char[] chars = str.toCharArray();
+	    chars[index] = replace;
+	    return String.valueOf(chars);       
+	}
+	public int editCheck(String []str1, String str2, int k){
+		
+		int wordCount=1;
+		for(int i = 0; i < str1.length; i++) {
+			if(str1[i].equals(str2) == true) continue;
+			if(isValid(str1[i], str2) == false) continue;		
+
+			
+		if(str1[i].compareTo(str2) != 0){
+	        if(str1[i].length() > str2.length()){
+	        	if(str1[i].contains(str2) == true) wordCount++;
+	        	
+	        }
+	        else if(str1[i].length() < str2.length() ){
+	        	if(str2.contains(str1[i]) == true) wordCount++;
+	        } 
+	        else {
+				for(int j = 0; j < str2.length(); j++){
+					char c = str2.charAt(j);
+					
+					while(++c <= 'z'){
+												
+						str2 = replace(str2, j, c);
+						if(str2.compareTo(str1[i]) == 0) {
+							wordCount++;
+							//break;
+						}
+						
+						
+					}
+				}
+	        } // end of else
+		}
+		
+	}
+		
+		return wordCount;
+	}
+	
+	int maxCount = 1;
+	public static void main(String []args){
+
+		EditWord ew = new EditWord();
+		int count = 1;
+		String[] words = { "dig", "fig", "fin"};
+/*		String[] words = { "cat", "dig", "dog", "fig", "fin",
+                "fine", "fog", "log", "wine" };*/
+		for(int i = 0; i<words.length; i++){
+			
+			count = ew.editCheck(words, words[i], i);
+			
+			System.out.println("wordCount :"+count);
+			if(count > ew.maxCount) 
+				ew.maxCount = count;
+
+		}
+		
+		System.out.println("Eureka ..."+ew.maxCount);
+		
+	}
+	
+}
