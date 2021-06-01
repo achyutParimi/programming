@@ -1,4 +1,4 @@
-package com.samsung.test;
+package com.java.practise;
 
 import java.util.*;
 public class redundantConnection {
